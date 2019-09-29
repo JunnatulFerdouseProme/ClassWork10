@@ -51,7 +51,8 @@ namespace MyWindowsFormsApp
 
         private void showButton_Click(object sender, EventArgs e)
         {
-            Display();
+
+            showDataGridView.DataSource=_itemManager.Display();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -73,7 +74,7 @@ namespace MyWindowsFormsApp
                 MessageBox.Show("Not Deleted");
             }
 
-            Display();
+            showDataGridView.DataSource=_itemManager.Display();
 
         }
 
@@ -95,7 +96,7 @@ namespace MyWindowsFormsApp
             if (_itemManager.Update(nameTextBox.Text, Convert.ToDouble(priceTextBox.Text), Convert.ToInt32(idTextBox.Text)))
             {
                 MessageBox.Show("Updated");
-                Display();
+                showDataGridView.DataSource=_itemManager.Display();
             }
             else
             {
@@ -105,91 +106,16 @@ namespace MyWindowsFormsApp
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            Search(nameTextBox.Text);
+            showDataGridView.DataSource=_itemManager.Search(nameTextBox.Text);
         }
 
         //Method
       
         
-        private void Display()
-        {
-            try
-            {
-                //Connection
-                string connectionString = @"Server=PC-301-04\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-                //Command 
-                //INSERT INTO Items (Name, Price) Values ('Black', 120)
-                string commandString = @"SELECT * FROM Items";
-                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-                //Open
-                sqlConnection.Open();
-
-                //Show
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                if (dataTable.Rows.Count > 0)
-                {
-                    showDataGridView.DataSource = dataTable;
-                }
-                else
-                {
-                    MessageBox.Show("No Data Found");
-                }
-
-                //Close
-                sqlConnection.Close();
-
-            }
-            catch (Exception exeption)
-            {
-                MessageBox.Show(exeption.Message);
-            }
-        }
        
        
-        private void Search(string name)
-        {
-            try
-            {
-                //Connection
-                string connectionString = @"Server=PC-301-04\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-                //Command 
-                //INSERT INTO Items (Name, Price) Values ('Black', 120)
-                string commandString = @"SELECT * FROM Items WHERE Name='" + name + "'";
-                SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-                //Open
-                sqlConnection.Open();
-
-                //Show
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                if (dataTable.Rows.Count > 0)
-                {
-                    showDataGridView.DataSource = dataTable;
-                }
-                else
-                {
-                    MessageBox.Show("No Data Found");
-                }
-
-                //Close
-                sqlConnection.Close();
-
-            }
-            catch (Exception exeption)
-            {
-                MessageBox.Show(exeption.Message);
-            }
-        }
-
+       
+     
      
     }
 

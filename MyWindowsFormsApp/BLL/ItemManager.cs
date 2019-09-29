@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using MyWindowsFormsApp.Repository;
 
 namespace MyWindowsFormsApp.BLL
@@ -29,6 +30,16 @@ namespace MyWindowsFormsApp.BLL
        public bool Delete(int id)
        {
            return _itemRepository.Delete(id);
+       }
+
+       public DataTable Display()
+       {
+           return _itemRepository.Display();
+       }
+
+       public DataTable Search(string name)
+       {
+           return _itemRepository.Search(name);
        }
    }
 }

@@ -152,5 +152,84 @@ namespace MyWindowsFormsApp.Repository
 
            return false;
        }
+       public DataTable Display()
+       {
+           //try
+           //{
+               //Connection
+               string connectionString = @"Server=PC-301-04\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+               SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+               //Command 
+               //INSERT INTO Items (Name, Price) Values ('Black', 120)
+               string commandString = @"SELECT * FROM Items";
+               SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+               //Open
+               sqlConnection.Open();
+
+               //Show
+               SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+               DataTable dataTable = new DataTable();
+               sqlDataAdapter.Fill(dataTable);
+               //if (dataTable.Rows.Count > 0)
+               ////{
+               ////    showDataGridView.DataSource = dataTable;
+               //}
+               //else
+               //{
+               //    //MessageBox.Show("No Data Found");
+               //}
+
+               //Close
+               sqlConnection.Close();
+
+           //}
+           //catch (Exception exeption)
+           //{
+           //    MessageBox.Show(exeption.Message);
+           //}
+           return dataTable;
+       }
+       public DataTable Search(string name)
+       {
+           //try
+           //{
+               //Connection
+               string connectionString = @"Server=PC-301-04\SQLEXPRESS; Database=CoffeeShop; Integrated Security=True";
+               SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+               //Command 
+               //INSERT INTO Items (Name, Price) Values ('Black', 120)
+               string commandString = @"SELECT * FROM Items WHERE Name='" + name + "'";
+               SqlCommand sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+               //Open
+               sqlConnection.Open();
+
+               //Show
+               SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+               DataTable dataTable = new DataTable();
+               sqlDataAdapter.Fill(dataTable);
+               //if (dataTable.Rows.Count > 0)
+               //{
+               //    showDataGridView.DataSource = dataTable;
+               //}
+               //else
+               //{
+               //    MessageBox.Show("No Data Found");
+               //}
+
+               //Close
+               sqlConnection.Close();
+
+           //}
+           //catch (Exception exeption)
+           //{
+           //    MessageBox.Show(exeption.Message);
+           //}
+           return dataTable;
+       }
+
     }
 }
